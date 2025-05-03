@@ -13,31 +13,22 @@ def minOperations(n):
         n (int): The target number of 'H' characters.
 
     Returns:
-        int: The minimum number of operations, or 0 if n is impossible to achieve.
+        int: The minimum number of operations, or 0 if n is impossible
+             to achieve (n <= 1).
     """
     if n <= 1:
         return 0
 
     operations = 0
-    current_h = 1
-    clipboard = 0
+    i = 2
+    while i * i <= n:
+        while n % i == 0:
+            operations += i
+            n //= i
+        i += 1
 
-    while current_h < n:
-        if clipboard == 0:
-            # If clipboard is empty, we must copy
-            clipboard = current_h
-            operations += 1
-        elif current_h < n // 2 + 1 and n % current_h == 0:
-            # If we can reach n faster by multiplying the current count
-            clipboard = current_h
-            operations += 1
-        elif clipboard > 0:
-            # Paste
-            current_h += clipboard
-            operations += 1
-        elif current_h == 1:
-            # Should not reach here if n > 1
-            return 0
+    if n > 1:
+        operations += n
 
     return operations
 
@@ -71,4 +62,16 @@ if __name__ == "__main__":
     print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
 
     n = 16
+    print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
+
+    n = 21
+    print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
+
+    n = 19170307
+    print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
+
+    n = 972
+    print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
+
+    n = 2147483640
     print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
