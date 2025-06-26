@@ -1,6 +1,7 @@
-me
+#!/usr/bin/python3
 """
-
+Prime Game
+"""
 
 def findMultiples(num, targets):
     """
